@@ -2,7 +2,7 @@ package com.example.diceroller
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -10,6 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var rollButton = findViewById<Button>(R.id.button)
+
+        val diceImage = findViewById<ImageView>(R.id.imageViewDice)
 
         rollButton.setOnClickListener {
             /*val toast = Toast.makeText(this, "Dice Rolled", Toast.LENGTH_SHORT)
@@ -21,18 +23,31 @@ class MainActivity : AppCompatActivity() {
             valueOfView++
             txtView.text = valueOfView.toString()*/
 
-            rollDice(findViewById<TextView>(R.id.textViewMessage))
+            rollDice(diceImage)
         }
+
+        rollDice(diceImage)
     }
 
     /**
      * Will display the result of a diced roll and add to a text view
      */
-    private fun rollDice(txtView: TextView) {
+    private fun rollDice(imageView: ImageView) {
         val dice = Dice(6)
         val diceRoll = dice.roll()
 
-        txtView.text = diceRoll.toString()
+        when(diceRoll){
+            1 -> imageView.setImageResource(R.drawable.dice_1)
+            2 -> imageView.setImageResource(R.drawable.dice_2)
+            3 -> imageView.setImageResource(R.drawable.dice_3)
+            4 -> imageView.setImageResource(R.drawable.dice_4)
+            5 -> imageView.setImageResource(R.drawable.dice_5)
+            6 -> imageView.setImageResource(R.drawable.dice_6)
+        }
+
+        imageView.contentDescription = diceRoll.toString()
+
+
     }
 }
 
